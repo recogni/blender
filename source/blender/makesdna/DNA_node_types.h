@@ -1044,16 +1044,14 @@ typedef struct NodeShaderTexIES {
   char filepath[1024];
 } NodeShaderTexIES;
 
-<<<<<<< HEAD
 typedef struct NodeShaderOutputAOV {
   char name[64];
 } NodeShaderOutputAOV;
-=======
+
 /* Recogni: Custom python node */
 typedef struct NodePython {
   char filepath[1024]; /* 1024 = FILE_MAX */
 } NodePython;
->>>>>>> 0cab23f846e... Update gitmodules to use https clone path
 
 typedef struct NodeSunBeams {
   float source[2];
