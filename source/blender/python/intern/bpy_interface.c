@@ -236,6 +236,8 @@ static struct _inittab bpy_internal_modules[] = {
     {NULL, NULL},
 };
 
+int initCompositorPython();
+
 /* call BPY_context_set first */
 void BPY_python_start(int argc, const char **argv)
 {
@@ -328,6 +330,8 @@ void BPY_python_start(int argc, const char **argv)
   BPy_init_modules();
 
   pyrna_alloc_types();
+
+  initCompositorPython();
 
 #ifndef WITH_PYTHON_MODULE
   /* py module runs atexit when bpy is freed */

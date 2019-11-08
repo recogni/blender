@@ -1010,6 +1010,11 @@ typedef struct NodeShaderTexIES {
   char filepath[1024];
 } NodeShaderTexIES;
 
+/* Recogni: Custom python node */
+typedef struct NodePython {
+  char filepath[1024]; /* 1024 = FILE_MAX */
+} NodePython;
+
 typedef struct NodeSunBeams {
   float source[2];
 

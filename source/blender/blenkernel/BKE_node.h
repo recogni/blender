@@ -1138,6 +1138,11 @@ void ntreeGPUMaterialNodes(struct bNodeTree *localtree,
 #define CMP_NODE_CRYPTOMATTE 323
 #define CMP_NODE_DENOISE 324
 
+/* 
+ *  Recogni: Define custom python recogni node.
+ */
+#define CMP_NODE_PYTHON 400
+
 /* channel toggles */
 #define CMP_CHAN_RGB 1
 #define CMP_CHAN_A 2
