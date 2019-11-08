@@ -516,6 +516,9 @@ bool ExecutionGroup::scheduleChunk(unsigned int chunkNumber)
   return false;
 }
 
+/* Recogni: Custom python operation requires main queue event forwarding here */
+extern "C" int wm_window_process_main_queue_events();
+
 bool ExecutionGroup::scheduleChunkWhenPossible(ExecutionSystem *graph, int xChunk, int yChunk)
 {
   if (xChunk < 0 || xChunk >= (int)this->m_x_chunks_len) {
@@ -564,6 +567,11 @@ bool ExecutionGroup::scheduleChunkWhenPossible(ExecutionSystem *graph, int xChun
 
   if (canBeExecuted) {
     scheduleChunk(chunkNumber);
+  }
+
+  if (BLI_thread_is_main()) {
+    // When Blender is run in background mode, we need to pump events manually
+    wm_window_process_main_queue_events();
   }
 
   return false;

@@ -325,6 +325,8 @@ static void pystatus_exit_on_error(PyStatus status)
 }
 #endif
 
+int initCompositorPython();
+
 /* call BPY_context_set first */
 void BPY_python_start(bContext *C, int argc, const char **argv)
 {
@@ -498,6 +500,8 @@ void BPY_python_start(bContext *C, int argc, const char **argv)
   BPy_init_modules(C);
 
   pyrna_alloc_types();
+
+  initCompositorPython();
 
 #ifndef WITH_PYTHON_MODULE
   /* py module runs atexit when bpy is freed */

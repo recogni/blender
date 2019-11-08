@@ -39,10 +39,12 @@ set(INC
   ../../../extern/clew/include
   ../../../intern/atomic
   ../../../intern/guardedalloc
+  ${PYTHON_NUMPY_INCLUDE_DIRS}
 )
 
 set(INC_SYS
-
+  ${PYTHON_INCLUDE_DIRS}
+  ${PYTHON_NUMPY_INCLUDE_DIRS}
 )
 
 set(SRC
@@ -280,6 +282,13 @@ set(SRC
   nodes/COM_VectorBlurNode.h
   operations/COM_VectorBlurOperation.cc
   operations/COM_VectorBlurOperation.h
+
+  # Recogni : Custom python node
+  nodes/COM_PythonNode.cpp
+  nodes/COM_PythonNode.h
+  operations/COM_PythonOperation.cpp
+  operations/COM_PythonOperation.h
+
   nodes/COM_BlurNode.cc
   nodes/COM_BlurNode.h
   nodes/COM_BokehBlurNode.cc
