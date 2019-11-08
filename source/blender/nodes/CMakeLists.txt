@@ -57,6 +57,7 @@ set(SRC
   composite/nodes/node_composite_colorSpill.c
   composite/nodes/node_composite_colorbalance.c
   composite/nodes/node_composite_colorcorrection.c
+  composite/nodes/node_composite_python.c
   composite/nodes/node_composite_common.c
   composite/nodes/node_composite_composite.c
   composite/nodes/node_composite_cornerpin.c

@@ -115,6 +115,9 @@
 #include "COM_ViewerNode.h"
 #include "COM_ZCombineNode.h"
 
+/* Recogni : Custom python node */
+#include "COM_PythonNode.h"
+
 bool Converter::is_fast_node(bNode *b_node)
 {
   return !ELEM(b_node->type,
@@ -402,6 +405,10 @@ Node *Converter::convert(bNode *b_node)
       break;
     case CMP_NODE_CORNERPIN:
       node = new CornerPinNode(b_node);
+      break;
+    /* Recogni : Custom python node */
+    case CMP_NODE_PYTHON:
+      node = new PythonNode(b_node);
       break;
     case CMP_NODE_SUNBEAMS:
       node = new SunBeamsNode(b_node);

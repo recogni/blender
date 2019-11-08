@@ -136,6 +136,9 @@ void register_node_type_cmp_trackpos(void);
 void register_node_type_cmp_planetrackdeform(void);
 void register_node_type_cmp_cornerpin(void);
 
+/* Recogni: Custom python node */
+void register_node_type_cmp_python(void);
+
 void node_cmp_rlayers_outputs(struct bNodeTree *ntree, struct bNode *node);
 void node_cmp_rlayers_register_pass(struct bNodeTree *ntree,
                                     struct bNode *node,
