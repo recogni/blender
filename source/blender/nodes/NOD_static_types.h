@@ -220,10 +220,13 @@ DefNode(CompositorNode, CMP_NODE_PIXELATE,       0,                      "PIXELA
 DefNode(CompositorNode, CMP_NODE_PLANETRACKDEFORM,def_cmp_planetrackdeform,"PLANETRACKDEFORM",PlaneTrackDeform,"Plane Track Deform",""            )
 DefNode(CompositorNode, CMP_NODE_CORNERPIN,      0,                      "CORNERPIN",      CornerPin,        "Corner Pin",        ""              )
 DefNode(CompositorNode, CMP_NODE_SUNBEAMS,       def_cmp_sunbeams,       "SUNBEAMS",       SunBeams,         "Sun Beams",         ""              )
-DefNode(CompositorNode, CMP_NODE_PYTHON,         def_cmp_python, 	     "PYTHON",         Python,           "Python Script",     ""              )
 DefNode(CompositorNode, CMP_NODE_CRYPTOMATTE,    def_cmp_cryptomatte,    "CRYPTOMATTE",    Cryptomatte,      "Cryptomatte",       ""              )
 DefNode(CompositorNode, CMP_NODE_DENOISE,        def_cmp_denoise,        "DENOISE",        Denoise,          "Denoise",           ""              )
 DefNode(CompositorNode, CMP_NODE_EXPOSURE,       0,                      "EXPOSURE",       Exposure,         "Exposure",          ""              )
+
+/* Recogni custom nodes */
+DefNode(CompositorNode, CMP_NODE_PYTHON,         def_cmp_python, 	     "PYTHON",         Python,           "Python Script",     ""              )
+DefNode(CompositorNode, CMP_NODE_RECOGNI_OBJECT_ID, def_cmp_recogni_oid,  "REOBJECTID",     RecogniObjectID,  "Recogni Object ID", ""              )
 
 DefNode(TextureNode,    TEX_NODE_OUTPUT,         def_tex_output,         "OUTPUT",         Output,           "Output",            ""              )
 DefNode(TextureNode,    TEX_NODE_CHECKER,        0,                      "CHECKER",        Checker,          "Checker",           ""              )

@@ -4525,6 +4525,7 @@ static void registerCompositNodes(void)
    *  Recogni: Register custom python node.
    */
   register_node_type_cmp_python();
+  register_node_type_cmp_recogni_object_id();
 
   register_node_type_cmp_valtorgb();
   register_node_type_cmp_rgbtobw();

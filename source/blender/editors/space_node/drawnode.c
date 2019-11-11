@@ -2524,6 +2524,15 @@ static void node_composit_buts_python(uiLayout *layout, bContext *UNUSED(C), Poi
   uiItemR(layout, ptr, "filepath", 0, "", ICON_NONE);
 }
 
+static void node_composit_buts_reobjid(uiLayout *layout, bContext *UNUSED(C), PointerRNA *ptr)
+{
+  // uiLayout *col;
+  // col = uiLayoutColumn(layout, false);
+  // uiItemR(col, ptr, "invert_rgb", 0, NULL, ICON_NONE);
+  // uiItemR(col, ptr, "invert_alpha", 0, NULL, ICON_NONE);
+}
+
+
 static void node_composit_buts_mask(uiLayout *layout, bContext *C, PointerRNA *ptr)
 {
   bNode *node = ptr->data;
@@ -2945,11 +2954,6 @@ static void node_composit_set_butfunc(bNodeType *ntype)
     case CMP_NODE_SUNBEAMS:
       ntype->draw_buttons = node_composit_buts_sunbeams;
       break;
-    /* Recogni: Custom python node */
-    case CMP_NODE_PYTHON:
-      ntype->draw_buttons = node_composit_buts_python;
-      ntype->width += 50;
-      break;
     case CMP_NODE_CRYPTOMATTE:
       ntype->draw_buttons = node_composit_buts_cryptomatte;
       ntype->draw_buttons_ex = node_composit_buts_cryptomatte_ex;
@@ -2960,6 +2964,16 @@ static void node_composit_set_butfunc(bNodeType *ntype)
     case CMP_NODE_DENOISE:
       ntype->draw_buttons = node_composit_buts_denoise;
       break;
+
+    /* Recogni: Custom python node */
+    case CMP_NODE_PYTHON:
+      ntype->draw_buttons = node_composit_buts_python;
+      ntype->width += 50;
+      break;
+    case CMP_NODE_RECOGNI_OBJECT_ID:
+      ntype->draw_buttons = node_composit_buts_reobjid;
+      break;
+
   }
 }
 
