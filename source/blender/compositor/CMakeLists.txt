@@ -289,6 +289,11 @@ set(SRC
   operations/COM_PythonOperation.cpp
   operations/COM_PythonOperation.h
 
+  nodes/COM_RecogniObjectIDNode.cpp
+  nodes/COM_RecogniObjectIDNode.h
+  operations/COM_RecogniObjectIDOperation.cpp
+  operations/COM_RecogniObjectIDOperation.h
+
   nodes/COM_BlurNode.cc
   nodes/COM_BlurNode.h
   nodes/COM_BokehBlurNode.cc

@@ -117,6 +117,7 @@
 
 /* Recogni : Custom python node */
 #include "COM_PythonNode.h"
+#include "COM_RecogniObjectIDNode.h"
 
 bool COM_bnode_is_fast_node(const bNode &b_node)
 {
@@ -406,10 +407,6 @@ Node *COM_convert_bnode(bNode *b_node)
     case CMP_NODE_CORNERPIN:
       node = new CornerPinNode(b_node);
       break;
-    /* Recogni : Custom python node */
-    case CMP_NODE_PYTHON:
-      node = new PythonNode(b_node);
-      break;
     case CMP_NODE_SUNBEAMS:
       node = new SunBeamsNode(b_node);
       break;
@@ -424,6 +421,13 @@ Node *COM_convert_bnode(bNode *b_node)
       break;
     case CMP_NODE_EXPOSURE:
       node = new ExposureNode(b_node);
+      break;
+    /* Recogni : Custom python node */
+    case CMP_NODE_PYTHON:
+      node = new PythonNode(b_node);
+      break;
+    case CMP_NODE_RECOGNI_OBJECT_ID:
+      node = new RecogniObjectIDNode(b_node);
       break;
   }
   return node;

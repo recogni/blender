@@ -8533,19 +8533,6 @@ static void def_cmp_sunbeams(StructRNA *srna)
   RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
 }
 
-/* Recogni: Custom python node */
-static void def_cmp_python(StructRNA *srna)
-{
-  PropertyRNA *prop;
-
-  RNA_def_struct_sdna_from(srna, "NodePython", "storage");
-
-  prop = RNA_def_property(srna, "filepath", PROP_STRING, PROP_FILEPATH);
-  RNA_def_property_string_sdna(prop, NULL, "filepath");
-  RNA_def_property_ui_text(prop, "Script file", "");
-  RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
-}
-
 static void def_cmp_cryptomatte_entry(BlenderRNA *brna)
 {
   StructRNA *srna;
@@ -8674,6 +8661,36 @@ static void def_cmp_denoise(StructRNA *srna)
   RNA_def_property_boolean_sdna(prop, NULL, "hdr", 0);
   RNA_def_property_ui_text(prop, "HDR", "Process HDR images");
   RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
+}
+
+/*
+ *  Recogni: Custom python nodes
+ */
+static void def_cmp_python(StructRNA *srna)
+{
+  PropertyRNA *prop;
+
+  RNA_def_struct_sdna_from(srna, "NodePython", "storage");
+
+  prop = RNA_def_property(srna, "filepath", PROP_STRING, PROP_FILEPATH);
+  RNA_def_property_string_sdna(prop, NULL, "filepath");
+  RNA_def_property_ui_text(prop, "Script file", "");
+  RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
+}
+
+static void def_cmp_recogni_oid(StructRNA *srna)
+{
+  // PropertyRNA *prop;
+
+  // prop = RNA_def_property(srna, "invert_rgb", PROP_BOOLEAN, PROP_NONE);
+  // RNA_def_property_boolean_sdna(prop, NULL, "custom1", CMP_CHAN_RGB);
+  // RNA_def_property_ui_text(prop, "RGB", "");
+  // RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
+
+  // prop = RNA_def_property(srna, "invert_alpha", PROP_BOOLEAN, PROP_NONE);
+  // RNA_def_property_boolean_sdna(prop, NULL, "custom1", CMP_CHAN_A);
+  // RNA_def_property_ui_text(prop, "Alpha", "");
+  // RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
 }
 
 /* -- Texture Nodes --------------------------------------------------------- */
