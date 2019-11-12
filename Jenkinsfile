@@ -13,7 +13,7 @@ pipeline {
 
         stage('Setup') {
             steps {
-                sh 'git submodule update --init --recursive'
+                sh '/opt/bitnami/git/bin/git submodule update --init --recursive'
                 sh 'make update'
             }
         }
