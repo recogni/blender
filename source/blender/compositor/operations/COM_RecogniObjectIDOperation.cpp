@@ -22,9 +22,11 @@ RecogniObjectIDOperation::RecogniObjectIDOperation() : NodeOperation()
 {
   this->addInputSocket(COM_DT_VALUE);
   this->addOutputSocket(COM_DT_COLOR);
+  
   this->m_inputValueProgram = NULL;
-  setResolutionInputSocketIndex(1);
+  setResolutionInputSocketIndex(0);
 }
+
 void RecogniObjectIDOperation::initExecution()
 {
   this->m_inputValueProgram = this->getInputSocketReader(0);
