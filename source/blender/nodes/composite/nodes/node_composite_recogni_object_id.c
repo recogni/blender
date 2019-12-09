@@ -25,23 +25,21 @@
 
 /* **************** RECOGNI OBJECT ID ******************** */
 static bNodeSocketTemplate cmp_node_recogni_oid_in[] = {
-    {SOCK_FLOAT, 1, N_("Object ID"), 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, PROP_FACTOR},
-    {-1, 0, ""}};
+    {SOCK_FLOAT, 1, N_("ObjectID"), 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, PROP_FACTOR},
+    {-1, 0, ""}
+};
 
-static bNodeSocketTemplate cmp_node_recogni_oid_out[] = {{SOCK_RGBA, 0, N_("Color")}, {-1, 0, ""}};
-
-static void node_composit_init_recogni_object_id(bNodeTree *UNUSED(ntree), bNode *node)
-{
-  node->custom1 |= CMP_CHAN_RGB;
-}
+static bNodeSocketTemplate cmp_node_recogni_oid_out[] = {
+	{SOCK_RGBA, 0, N_("Image")}, 
+	{-1, 0, ""},
+};
 
 void register_node_type_cmp_recogni_object_id(void)
 {
   static bNodeType ntype;
 
-  cmp_node_type_base(&ntype, CMP_NODE_RECOGNI_OBJECT_ID, "Recogni Object ID", NODE_CLASS_OP_COLOR, 0);
+  cmp_node_type_base(&ntype, CMP_NODE_RECOGNI_OBJECT_ID, "RecogniOID", NODE_CLASS_OP_FILTER, 0);
   node_type_socket_templates(&ntype, cmp_node_recogni_oid_in, cmp_node_recogni_oid_out);
-  node_type_init(&ntype, node_composit_init_recogni_object_id);
 
   nodeRegisterType(&ntype);
 }

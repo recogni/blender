@@ -28,10 +28,11 @@ RecogniObjectIDNode::RecogniObjectIDNode(bNode *editorNode) : Node(editorNode)
 void RecogniObjectIDNode::convertToOperations(NodeConverter &converter,
                                      const CompositorContext & /*context*/) const
 {
+  NodeInput *inputSock = this->getInputSocket(0);
+  NodeOutput *outputSock = this->getOutputSocket(0);
   RecogniObjectIDOperation *operation = new RecogniObjectIDOperation();
-  bNode *node = this->getbNode();
-  converter.addOperation(operation);
 
-  converter.mapInputSocket(getInputSocket(0), operation->getInputSocket(0));
-  converter.mapOutputSocket(getOutputSocket(0), operation->getOutputSocket(0));
+  converter.addOperation(operation);
+  converter.mapInputSocket(inputSock, operation->getInputSocket(0));
+  converter.mapOutputSocket(outputSock, operation->getOutputSocket(0));
 }
