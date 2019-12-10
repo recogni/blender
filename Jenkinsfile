@@ -47,20 +47,24 @@ pipeline {
                 script {
                     activeStageName = env.STAGE_NAME
 
-                    docker.withRegistry("https://${env.DOCKER_REPOSITORY}") {
-                        dockerImage = docker.build("${env.DOCKER_REPOSITORY}/${env.GCP_PROJECT_ID}/blender:${env.BUILD_ID}",
-                                                   " -f Dockerfile" +
-                                                   " --pull" +
-                                                   " .")
-                        dockerImages << dockerImage
+                    withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jenkins-ssh',
+                                                                 keyFileVariable: 'SSH_KEY')]) {
+                        docker.withRegistry("https://${env.DOCKER_REPOSITORY}") {
+                            dockerImage = docker.build("${env.DOCKER_REPOSITORY}/${env.GCP_PROJECT_ID}/blender:${env.BUILD_ID}",
+                                                       " -f Dockerfile" +
+                                                       " --pull" +
+                                                       " --ssh default=${env.SSH_KEY}" +
+                                                       " .")
+                            dockerImages << dockerImage
 
-			dockerImage.push("${env.BUILD_ID}-${scmVars.GIT_COMMIT.substring(0,8)}")
+                            dockerImage.push("${env.BUILD_ID}-${scmVars.GIT_COMMIT.substring(0,8)}")
 
-                        if (scmVars.GIT_BRANCH == "recogni") {
-                            dockerImage.push("latest")
-                        }
-                        else {
-                            dockerImage.push("${scmVars.GIT_BRANCH.replaceAll(/[^0-9A-Za-z_]/, "-")}-latest")
+                            if (scmVars.GIT_BRANCH == "recogni") {
+                                dockerImage.push("latest")
+                            }
+                            else {
+                                dockerImage.push("${scmVars.GIT_BRANCH.replaceAll(/[^0-9A-Za-z_]/, "-")}-latest")
+                            }
                         }
                     }
                 }
