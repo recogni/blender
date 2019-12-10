@@ -1,3 +1,5 @@
+# syntax = docker/dockerfile:experimental
+
 FROM nvidia/cuda:10.1-devel-ubuntu18.04
 
 RUN echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" >/etc/apt/sources.list.d/apt-fast.list && \
@@ -13,8 +15,16 @@ RUN cd /blender && \
     chmod +x install_deps.sh && \
     TERM=dumb ./install_deps.sh --no-confirm --skip-ocio --skip-openexr --skip-osl --skip-alembic --build-numpy
 
+RUN --mount=type=ssh \
+    mkdir -p -m 0700 ~/.ssh && \
+    ssh-keyscan github.com >~/.ssh/known_hosts && \
+    git clone git@github.com:recogni/nvidia-optix-sdk /tmp/nvidia-optix-sdk && \
+    mkdir /NVIDIA-OptiX-SDK && \
+    sh /tmp/nvidia-optix-sdk/installer/NVIDIA-OptiX-SDK-*.sh --prefix=/NVIDIA-OptiX-SDK --skip-license && \
+    rm -rf /tmp/nvidia-optix-sdk
+
 RUN cd /blender && \
-    grep '^[[:space:]]*make' BUILD_NOTES.txt | sed 's/"[[:space:]]*$/ -D WITH_CYCLES_CUDA_BINARIES=ON -D WITH_OPENCOLORIO=ON" full/' | tee build.sh && \
+    grep '^[[:space:]]*make' BUILD_NOTES.txt | sed 's/"[[:space:]]*$/ -D WITH_CYCLES_CUDA_BINARIES=ON -D WITH_CYCLES_DEVICE_OPTIX=ON -D OPTIX_ROOT_DIR=\/NVIDIA-OptiX-SDK -D WITH_OPENCOLORIO=ON" full/' | tee build.sh && \
     chmod +x build.sh && \
     cd workspace && \
     ../build.sh
