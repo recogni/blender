@@ -51,5 +51,8 @@ COPY --from=0 \
     /etc/ld.so.conf.d/osd.conf \
         /etc/ld.so.conf.d/
 
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES all
+
 ENTRYPOINT ["/opt/blender/blender"]
 CMD []
