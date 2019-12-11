@@ -18,7 +18,7 @@ RUN cd /blender && \
 RUN --mount=type=ssh \
     mkdir -p -m 0700 ~/.ssh && \
     ssh-keyscan github.com >~/.ssh/known_hosts && \
-    git clone git@github.com:recogni/nvidia-optix-sdk /tmp/nvidia-optix-sdk && \
+    git clone --branch v7.0.0 git@github.com:recogni/nvidia-optix-sdk /tmp/nvidia-optix-sdk && \
     mkdir /NVIDIA-OptiX-SDK && \
     sh /tmp/nvidia-optix-sdk/installer/NVIDIA-OptiX-SDK-*.sh --prefix=/NVIDIA-OptiX-SDK --skip-license && \
     rm -rf /tmp/nvidia-optix-sdk
