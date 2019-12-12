@@ -1994,6 +1994,7 @@ static void node_composit_buts_file_output_ex(uiLayout *layout, bContext *C, Poi
       if ((!is_exr && use_node_format) || (!is_socket_exr && !use_node_format)) {
         uiItemR(col, &active_input_ptr, "save_as_render", DEFAULT_FLAGS, NULL, ICON_NONE);
       }
+      uiItemR(col, &active_input_ptr, "skip_frame_count", 0, NULL, ICON_NONE);
 
       col = uiLayoutColumn(layout, false);
       uiLayoutSetActive(col, use_node_format == false);

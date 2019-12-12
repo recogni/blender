@@ -230,6 +230,8 @@ OutputSingleLayerOperation::OutputSingleLayerOperation(
   this->m_format = format;
   BLI_strncpy(this->m_path, path, sizeof(this->m_path));
 
+  this->m_disableFrameCount = false;
+
   this->m_viewSettings = viewSettings;
   this->m_displaySettings = displaySettings;
   this->m_viewName = viewName;
@@ -277,7 +279,7 @@ void OutputSingleLayerOperation::deinitExecution()
                                  this->m_rd->cfra,
                                  this->m_format,
                                  (this->m_rd->scemode & R_EXTENSION) != 0,
-                                 true,
+                                 this->isFrameCountDisabled() == false,
                                  suffix);
 
     if (0 == BKE_imbuf_write(ibuf, filename, this->m_format)) {
