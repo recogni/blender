@@ -1985,6 +1985,7 @@ static void node_composit_buts_file_output_ex(uiLayout *layout, bContext *C, Poi
 
       col = uiLayoutColumn(layout, true);
       uiItemL(col, IFACE_("Format:"), ICON_NONE);
+      uiItemR(col, &active_input_ptr, "skip_frame_count", 0, NULL, ICON_NONE);
       uiItemR(col, &active_input_ptr, "use_node_format", 0, NULL, ICON_NONE);
 
       col = uiLayoutColumn(layout, false);

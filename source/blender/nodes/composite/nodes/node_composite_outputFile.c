@@ -146,6 +146,9 @@ bNodeSocket *ntreeCompositOutputFileAddSocket(bNodeTree *ntree,
   }
   /* use node data format by default */
   sockdata->use_node_format = true;
+  
+  /* recogni :: always add frame count by default : preserve legacy behavior */
+  sockdata->skip_frame_count = false;
 
   nimf->active_input = BLI_findindex(&node->inputs, sock);
 
