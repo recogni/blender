@@ -6477,6 +6477,11 @@ static void rna_def_cmp_output_file_slot_file(BlenderRNA *brna)
       prop, "Save as Render", "Apply render part of display transform when saving byte image");
   RNA_def_property_update(prop, NC_NODE | NA_EDITED, NULL);
 
+  prop = RNA_def_property(srna, "skip_frame_count", PROP_BOOLEAN, PROP_NONE);
+  RNA_def_property_boolean_sdna(prop, NULL, "skip_frame_count", 0);
+  RNA_def_property_ui_text(prop, "Skip Frame Count", "");
+  RNA_def_property_update(prop, NC_NODE | NA_EDITED, NULL);
+
   prop = RNA_def_property(srna, "format", PROP_POINTER, PROP_NONE);
   RNA_def_property_struct_type(prop, "ImageFormatSettings");
 

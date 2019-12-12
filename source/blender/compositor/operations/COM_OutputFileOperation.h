@@ -40,6 +40,8 @@ class OutputSingleLayerOperation : public NodeOperation {
   DataType m_datatype;
   SocketReader *m_imageInput;
 
+  bool m_disableFrameCount;
+
   const ColorManagedViewSettings *m_viewSettings;
   const ColorManagedDisplaySettings *m_displaySettings;
 
@@ -72,6 +74,16 @@ class OutputSingleLayerOperation : public NodeOperation {
   bool isFileOutputOperation() const
   {
     return true;
+  }
+
+  bool isFrameCountDisabled() const 
+  {
+    return m_disableFrameCount;
+  }
+
+  void setDisableFrameCount(const bool en)
+  {
+    m_disableFrameCount = en;
   }
 };
 

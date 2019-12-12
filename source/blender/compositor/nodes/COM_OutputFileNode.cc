@@ -140,6 +140,9 @@ void OutputFileNode::convertToOperations(NodeConverter &converter,
                                                       sockdata->save_as_render);
         }
 
+        // recogni :: hijack skip frame counter here.
+        ((OutputSingleLayerOperation*)outputOperation)->setDisableFrameCount(sockdata->skip_frame_count);
+
         converter.addOperation(outputOperation);
         converter.mapInputSocket(input, outputOperation->getInputSocket(0));
 
