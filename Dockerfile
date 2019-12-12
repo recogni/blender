@@ -8,13 +8,6 @@ RUN echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" >/etc
     DEBIAN_FRONTEND=noninteractive apt-get install -y apt-fast && \
     apt-fast install -y sudo git build-essential libopenexr-dev libopencolorio-dev opencolorio-tools
 
-COPY / /blender/workspace
-
-RUN cd /blender && \
-    sed 's/apt-get[[:space:]][[:space:]]*install/apt-fast install/' <workspace/build_files/build_environment/install_deps.sh >install_deps.sh && \
-    chmod +x install_deps.sh && \
-    TERM=dumb ./install_deps.sh --no-confirm --skip-ocio --skip-openexr --skip-osl --skip-alembic --build-numpy
-
 RUN --mount=type=ssh \
     mkdir -p -m 0700 ~/.ssh && \
     ssh-keyscan github.com >~/.ssh/known_hosts && \
@@ -22,6 +15,15 @@ RUN --mount=type=ssh \
     mkdir /NVIDIA-OptiX-SDK && \
     sh /tmp/nvidia-optix-sdk/installer/NVIDIA-OptiX-SDK-*.sh --prefix=/NVIDIA-OptiX-SDK --skip-license && \
     rm -rf /tmp/nvidia-optix-sdk
+
+COPY /build_files/build_environment/install_deps.sh /blender/workspace/build_files/build_environment/
+
+RUN cd /blender && \
+    sed 's/apt-get[[:space:]][[:space:]]*install/apt-fast install/' <workspace/build_files/build_environment/install_deps.sh >install_deps.sh && \
+    chmod +x install_deps.sh && \
+    TERM=dumb ./install_deps.sh --no-confirm --skip-ocio --skip-openexr --skip-osl --skip-alembic --build-numpy
+
+COPY / /blender/workspace
 
 RUN cd /blender && \
     grep '^[[:space:]]*make' BUILD_NOTES.txt | sed 's/"[[:space:]]*$/ -D WITH_CYCLES_CUDA_BINARIES=ON -D WITH_CYCLES_DEVICE_OPTIX=ON -D OPTIX_ROOT_DIR=\/NVIDIA-OptiX-SDK -D WITH_OPENCOLORIO=ON" full/' | tee build.sh && \
