@@ -43,17 +43,17 @@ void RecogniObjectIDOperation::executePixelSampled(float output[4], float x, flo
   const int value = int(oid[0]);
   
   /*
-   *  The top 8 bits of the value represent the ClassID.
-   *  The bottom 16 bits of the value represent the InstanceID.
-   *  The alpha channel is always set to 1.0.
-   *  ClassID and InstanceID of 0 is reserved for the background.
+   *  The top 8 bits of the value represent the InstanceID.
+   *  The bottom 8 bits of the value represent the ClassID.
+   *  The alpha channel is always set to 1.0 and the red channel is always set 
+   *  to 0.0.
    */
-  const uint classID = ((uint)(value >> 16)) & 0xFF;
-  const uint instanceID = ((uint)value) & 0xFFFF;
+  const uint instanceId = ((uint)(value >> 8)) & 0xFF;
+  const uint classId = ((uint)value) & 0xFF;
 
-  output[0] = ((float)classID) / 256.0f; 
-  output[1] = (((float)((instanceID >> 8) & 0xFF))) / 256.0f;
-  output[2] = (((float)((instanceID >> 0) & 0xFF))) / 256.0f;
+  output[0] = 0.0f;
+  output[1] = ((float)instanceId) / 256.0f;
+  output[2] = ((float)classId) / 256.0f;
   output[3] = 1.0f;
 }
 
