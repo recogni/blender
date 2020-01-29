@@ -53,6 +53,9 @@ COPY --from=0 \
     /etc/ld.so.conf.d/osd.conf \
         /etc/ld.so.conf.d/
 
+RUN /opt/blender/*/python/bin/python3.7m -m ensurepip && \
+    /opt/blender/*/python/bin/pip3 install pillow
+
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
 
