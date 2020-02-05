@@ -40,7 +40,7 @@ COPY --from=0 \
     /blender/build_linux_full/bin /opt/blender
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends $(cat /opt/blender/packages.txt) && \
+    apt-get install -y --no-install-recommends git openssh-client $(cat /opt/blender/packages.txt) && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=0 \
@@ -55,6 +55,11 @@ COPY --from=0 \
 
 RUN /opt/blender/*/python/bin/python3.7m -m ensurepip && \
     /opt/blender/*/python/bin/pip3 install pillow
+
+RUN --mount=type=ssh \
+    mkdir -p -m 0700 ~/.ssh && \
+    ssh-keyscan github.com >~/.ssh/known_hosts && \
+    /opt/blender/*/python/bin/pip3 install git+ssh://git@github.com/recogni/fuzz-py.git
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
