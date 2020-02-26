@@ -53,7 +53,8 @@ COPY --from=0 \
     /etc/ld.so.conf.d/osd.conf \
         /etc/ld.so.conf.d/
 
-RUN /opt/blender/*/python/bin/python3.7m -m ensurepip && \
+RUN ln -s python3.7m $(echo /opt/blender/*/python/bin)/python3 && \
+    /opt/blender/*/python/bin/python3 -m ensurepip && \
     /opt/blender/*/python/bin/pip3 install pillow
 
 RUN --mount=type=ssh \
