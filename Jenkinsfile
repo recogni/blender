@@ -30,18 +30,27 @@ pipeline {
 
                     scmVars.GIT_URL = scmVars.GIT_URL.replaceFirst(/\.git$/, "")
                     scmVars.GIT_REPOSITORY = scmVars.GIT_URL.replaceFirst(/^[a-z]+:\/\/[^\/]*\//, "")
-                    scmVars.GIT_AUTHOR = sh(script: "${GIT_EXEC_PATH}/git log -1 --pretty=%an ${scmVars.GIT_COMMIT}", returnStdout: true).trim()
-                    scmVars.GIT_MESSAGE = sh(script: "${GIT_EXEC_PATH}/git log -1 --pretty=%s ${scmVars.GIT_COMMIT}", returnStdout: true).trim()
+                    scmVars.GIT_AUTHOR = sh(script: "git log -1 --pretty=%an ${scmVars.GIT_COMMIT}", returnStdout: true).trim()
+                    scmVars.GIT_MESSAGE = sh(script: "git log -1 --pretty=%s ${scmVars.GIT_COMMIT}", returnStdout: true).trim()
 
                     scmVars.each { k, v ->
                          env."${k}" = "${v}"
                     }
                 }
+
+                stash(name: "workspace",
+                      excludes: ".git/**")
             }
         }
 
         stage("Build") {
+            agent {
+                label "farm"
+            }
+
             steps {
+                unstash(name: "workspace")
+
                 sh("gcloud auth configure-docker --quiet")
 
                 script {
@@ -76,7 +85,7 @@ pipeline {
         always {
             script {
                 dockerImages.each() { dockerImage ->
-                    sh("docker image rm -f \$(docker image ls --format '{{.ID}}' ${dockerImage.id})")
+                    sh("docker image rm -f \$(docker image ls --format '{{.ID}}' ${dockerImage.id}) || true")
                 }
 
                 sh("""#!/bin/bash -xe
