@@ -60,7 +60,7 @@ RUN ln -s python3.7m $(echo /opt/blender/*/python/bin)/python3 && \
 RUN --mount=type=ssh \
     mkdir -p -m 0700 ~/.ssh && \
     ssh-keyscan github.com >~/.ssh/known_hosts && \
-    /opt/blender/*/python/bin/pip3 install git+ssh://git@github.com/recogni/blender-scripts@769c2e1d72d4bad432f2cf255b7afb453cbf0682
+    /opt/blender/*/python/bin/pip3 install git+ssh://git@github.com/recogni/blender-scripts@9ea73b41d8e887eb3b7c02be453ca9bcc5e3d0bd
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
