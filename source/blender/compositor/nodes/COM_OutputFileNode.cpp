@@ -65,7 +65,8 @@ void OutputFileNode::convertToOperations(NodeConverter &converter,
                                                              use_half_float,
                                                              context.getViewName());
     }
-    converter.addOperation(outputOperation);
+
+    bool output_unmapped = true;
 
     int num_inputs = getNumberOfInputSockets();
     bool previewAdded = false;
@@ -76,6 +77,15 @@ void OutputFileNode::convertToOperations(NodeConverter &converter,
 
       /* note: layer becomes an empty placeholder if the input is not linked */
       outputOperation->add_layer(sockdata->layer, input->getDataType(), input->isLinked());
+
+      // recogni :: hijack skip frame counter here.
+      if (output_unmapped == true)
+      {
+        // recogni :: NOTE: The first inputs skip frame count option applies to the output node :)
+        converter.addOperation(outputOperation);
+        ((OutputSingleLayerOperation*)outputOperation)->setDisableFrameCount(sockdata->skip_frame_count);
+        output_unmapped = false;
+      }
 
       converter.mapInputSocket(input, outputOperation->getInputSocket(i));
 

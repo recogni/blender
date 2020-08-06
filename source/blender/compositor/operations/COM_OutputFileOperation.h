@@ -74,7 +74,7 @@ class OutputSingleLayerOperation : public NodeOperation {
     return true;
   }
 
-  bool isFrameCountDisabled() const 
+  bool isFrameCountDisabled() const
   {
     return m_disableFrameCount;
   }
