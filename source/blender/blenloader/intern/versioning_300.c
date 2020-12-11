@@ -24,6 +24,8 @@
 #include "BLI_math_vector.h"
 #include "BLI_utildefines.h"
 
+#include "DNA_anim_types.h"
+#include "DNA_armature_types.h"
 #include "DNA_brush_types.h"
 #include "DNA_genfile.h"
 #include "DNA_modifier_types.h"
@@ -57,6 +59,19 @@ void do_versions_after_linking_300(Main *bmain, ReportList *UNUSED(reports))
    */
   {
     /* Keep this block, even when empty. */
+  }
+}
+
+static void do_version_bones_bbone_len_scale(ListBase *lb)
+{
+  LISTBASE_FOREACH (Bone *, bone, lb) {
+    if (bone->flag & BONE_ADD_PARENT_END_ROLL) {
+      bone->bbone_flag |= BBONE_ADD_PARENT_END_ROLL;
+    }
+
+    bone->scale_in_len = bone->scale_out_len = 1.0f;
+
+    do_version_bones_bbone_len_scale(&bone->childbase);
   }
 }
 
@@ -103,6 +118,22 @@ void blo_do_versions_300(FileData *fd, Library *UNUSED(lib), Main *bmain)
         }
         LISTBASE_FOREACH (bPoseChannel *, pchan, &ob->pose->chanbase) {
           copy_v3_fl(pchan->custom_scale_xyz, pchan->custom_scale);
+        }
+      }
+    }
+
+    /* Initialize length-wise scale B-Bone settings. */
+    if (!DNA_struct_elem_find(fd->filesdna, "bPoseChannel", "float", "scale_out_len")) {
+      /* Update armature data and pose channels. */
+      LISTBASE_FOREACH (bArmature *, arm, &bmain->armatures) {
+        do_version_bones_bbone_len_scale(&arm->bonebase);
+      }
+
+      LISTBASE_FOREACH (Object *, ob, &bmain->objects) {
+        if (ob->pose) {
+          LISTBASE_FOREACH (bPoseChannel *, pchan, &ob->pose->chanbase) {
+            pchan->scale_in_len = pchan->scale_out_len = 1.0f;
+          }
         }
       }
     }
