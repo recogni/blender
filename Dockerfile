@@ -1,12 +1,12 @@
 # syntax = docker/dockerfile:experimental
 
-FROM nvidia/cuda:10.1-devel-ubuntu18.04
+FROM nvidia/cuda:11.1-devel-ubuntu20.04
 
 RUN echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" >/etc/apt/sources.list.d/apt-fast.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y apt-fast && \
-    apt-fast install -y sudo git build-essential libopenexr-dev libopencolorio-dev opencolorio-tools
+    apt-fast install -y sudo git build-essential libopenexr-dev libopencolorio-dev opencolorio-tools libtbb-dev libembree-dev
 
 RUN --mount=type=ssh \
     mkdir -p -m 0700 ~/.ssh && \
@@ -34,7 +34,7 @@ RUN cd /blender && \
 RUN dpkg -S $(ldd /blender/build_linux_full/bin/blender | awk '{print $3}') 2>/dev/null | \
         awk '{print $1}' | sed 's/:.*$//' | sort -u >/blender/build_linux_full/bin/packages.txt
 
-FROM nvidia/cuda:10.1-devel-ubuntu18.04
+FROM nvidia/cuda:11.1-devel-ubuntu20.04
 
 COPY --from=0 \
     /blender/build_linux_full/bin /opt/blender
