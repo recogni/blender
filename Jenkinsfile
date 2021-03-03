@@ -13,7 +13,7 @@ pipeline {
         GCP_PROJECT_ID = sh(script: "gcloud config get-value project", returnStdout: true).trim()
         DOCKER_REPOSITORY = "us.gcr.io"
         DOCKER_BUILDKIT = "1"
-        SLACK_CHANNEL = "dev-synthetic"
+        SLACK_CHANNEL = "dev-synthetic-bots"
     }
 
     stages {
