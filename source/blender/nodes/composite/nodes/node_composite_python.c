@@ -1,24 +1,24 @@
 #include "node_composite_util.h"
 
 static bNodeSocketTemplate cmp_node_python_in[] = {
-	{ SOCK_RGBA,  1, N_("Image 0"),      1.0f, 1.0f, 1.0f, 1.0f },
-	{ SOCK_RGBA,  1, N_("Image 1"),      1.0f, 1.0f, 1.0f, 1.0f },
-	{ SOCK_RGBA,  1, N_("Image 2"),      1.0f, 1.0f, 1.0f, 1.0f },
-	{ SOCK_RGBA,  1, N_("Image 3"),      1.0f, 1.0f, 1.0f, 1.0f },
-	{ SOCK_FLOAT, 1, N_("Input 0"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
-	{ SOCK_FLOAT, 1, N_("Input 1"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
-	{ SOCK_FLOAT, 1, N_("Input 2"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
-	{ SOCK_FLOAT, 1, N_("Input 3"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
-	{ SOCK_FLOAT, 1, N_("Input 4"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
-	{ SOCK_FLOAT, 1, N_("Input 5"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
-	{ SOCK_FLOAT, 1, N_("Input 6"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
-	{ SOCK_FLOAT, 1, N_("Input 7"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
-	{ -1, 0, "" }
+	{ SOCK_RGBA,  N_("Image 0"),      1.0f, 1.0f, 1.0f, 1.0f },
+	{ SOCK_RGBA,  N_("Image 1"),      1.0f, 1.0f, 1.0f, 1.0f },
+	{ SOCK_RGBA,  N_("Image 2"),      1.0f, 1.0f, 1.0f, 1.0f },
+	{ SOCK_RGBA,  N_("Image 3"),      1.0f, 1.0f, 1.0f, 1.0f },
+	{ SOCK_FLOAT, N_("Input 0"),      0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
+	{ SOCK_FLOAT, N_("Input 1"),      0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
+	{ SOCK_FLOAT, N_("Input 2"),      0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
+	{ SOCK_FLOAT, N_("Input 3"),      0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
+	{ SOCK_FLOAT, N_("Input 4"),      0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
+	{ SOCK_FLOAT, N_("Input 5"),      0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
+	{ SOCK_FLOAT, N_("Input 6"),      0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
+	{ SOCK_FLOAT, N_("Input 7"),      0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
+	{ -1, "" }
 };
 
 static bNodeSocketTemplate cmp_node_python_out[] = {
-	{ SOCK_RGBA, 0, N_("Output 0") },
-	{ -1, 0, "" }
+	{ SOCK_RGBA, N_("Output 0") },
+	{ -1, "" }
 };
 
 static void node_composit_init_python(bNodeTree *UNUSED(ntree), bNode *node)
