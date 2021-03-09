@@ -25,13 +25,13 @@
 
 /* **************** RECOGNI OBJECT ID ******************** */
 static bNodeSocketTemplate cmp_node_recogni_oid_in[] = {
-    {SOCK_FLOAT, 1, N_("ObjectID"), 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, PROP_FACTOR},
-    {-1, 0, ""}
+    {SOCK_FLOAT, N_("ObjectID"), 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, PROP_FACTOR},
+    {-1, ""}
 };
 
 static bNodeSocketTemplate cmp_node_recogni_oid_out[] = {
-	{SOCK_RGBA, 0, N_("Image")}, 
-	{-1, 0, ""},
+	{SOCK_RGBA, N_("Image")}, 
+	{-1, ""},
 };
 
 void register_node_type_cmp_recogni_object_id(void)
