@@ -31,8 +31,8 @@ RUN cd /blender && \
     cd workspace && \
     ../build.sh
 
-RUN dpkg -S $(ldd /blender/build_linux_full/bin/blender | awk '{print $3}') 2>/dev/null | \
-        awk '{print $1}' | sed 's/:.*$//' | sort -u >/blender/build_linux_full/bin/packages.txt
+RUN dpkg -S $(ldd /blender/build_linux_full/bin/blender | fgrep '=>' | awk '{print $3"\n/usr"$3}') 2>/dev/null | \
+        awk -F: '{print $1}' | sort -u >/blender/build_linux_full/bin/packages.txt
 
 FROM nvidia/cuda:11.1-devel-ubuntu20.04
 
@@ -40,20 +40,18 @@ COPY --from=0 \
     /blender/build_linux_full/bin /opt/blender
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git openssh-client $(cat /opt/blender/packages.txt) && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $(cat /opt/blender/packages.txt) && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=0 \
     /opt /opt
 
 COPY --from=0 \
-    /etc/ld.so.conf.d/blosc.conf \
-    /etc/ld.so.conf.d/oiio.conf \
-    /etc/ld.so.conf.d/openvdb.conf \
-    /etc/ld.so.conf.d/osd.conf \
+    /etc/ld.so.conf.d/*.conf \
         /etc/ld.so.conf.d/
 
-RUN ln -s python3.7m $(echo /opt/blender/*/python/bin)/python3 && \
+RUN ldconfig && \
+    ln -s python3.7m $(echo /opt/blender/*/python/bin)/python3 && \
     /opt/blender/*/python/bin/python3 -m ensurepip
 
 ENV NVIDIA_VISIBLE_DEVICES all
