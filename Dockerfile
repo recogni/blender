@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:experimental
 
-FROM nvidia/cuda:11.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.3.1-devel-ubuntu20.04
 
 RUN echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" >/etc/apt/sources.list.d/apt-fast.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B && \
@@ -35,7 +35,7 @@ RUN cd /blender && \
 RUN dpkg -S $(ldd /blender/build_linux_full/bin/blender | fgrep '=>' | awk '{print $3"\n/usr"$3}') 2>/dev/null | \
         awk -F: '{print $1}' | sort -u >/blender/build_linux_full/bin/packages.txt
 
-FROM nvidia/cuda:11.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.3.1-devel-ubuntu20.04
 
 COPY --from=0 \
     /blender/build_linux_full/bin /opt/blender
