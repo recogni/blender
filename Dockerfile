@@ -6,7 +6,7 @@ RUN echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" >/etc
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y apt-fast && \
-    apt-fast install -y sudo git build-essential libopenexr-dev libopencolorio-dev opencolorio-tools libtbb-dev libembree-dev \
+    apt-fast install -y sudo git build-essential libopenexr-dev libtbb-dev libembree-dev \
         'libboost-(filesystem|iostreams|locale|regex|system|thread|wave|program-options)1.71-dev'
 
 RUN --mount=type=ssh \
@@ -22,7 +22,7 @@ COPY /build_files/build_environment/install_deps.sh /blender/workspace/build_fil
 RUN cd /blender && \
     sed 's/apt-get[[:space:]][[:space:]]*install/apt-fast install/' <workspace/build_files/build_environment/install_deps.sh >install_deps.sh && \
     chmod +x install_deps.sh && \
-    TERM=dumb ./install_deps.sh --no-confirm --skip-ocio --skip-openexr --skip-osl --skip-alembic --skip-boost --build-numpy --build-python
+    TERM=dumb ./install_deps.sh --no-confirm --skip-openexr --skip-osl --skip-alembic --skip-boost --build-numpy --build-python
 
 COPY / /blender/workspace
 
